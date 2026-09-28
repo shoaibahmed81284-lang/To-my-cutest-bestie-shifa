@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Cutie Shifa 💗</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #feada6 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Floating Hearts Background */
+        .heart {
+            position: absolute;
+            bottom: -10px;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: float 6s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Card Container */
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            z-index: 10;
+            max-width: 450px;
+            width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        h2.nickname {
+            font-family: 'Sacramento', cursive;
+            color: #ff4d6d;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+
+        p.question {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons Styling */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s ease, font-size 0.2s ease, padding 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            z-index: 100;
+        }
+
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+            position: absolute;
+            transition: all 0.2s ease;
+        }
+
+        /* Celebration Screen Message */
+        .hidden {
+            display: none;
+        }
+
+        .message-card h2 {
+            color: #ff4d6d;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .message-card p {
+            color: #444;
+            line-height: 1.6;
+            font-size: 0.98rem;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            font-family: 'Sacramento', cursive;
+            font-size: 2rem;
+            color: #d63384;
+            text-align: right;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Hearts -->
+    <div id="hearts-container"></div>
+
+    <!-- Main Interactive Card -->
+    <div class="container" id="mainCard">
+        <h1>Hey Shifa! ✨</h1>
+        <h2 class="nickname">( My Cutie )</h2>
+        <p class="question">Life is better with you... Will you be my Bestie Forever? 💗</p>
+        
+        <div class="btn-group">
+            <button class="btn" id="yesBtn">YES! 💖</button>
+            <button class="btn" id="noBtn">No 🙈</button>
+        </div>
+    </div>
+
+    <!-- Promise Message Card (Appears after YES) -->
+    <div class="container hidden" id="messageCard">
+        <h2>Yay! Bestie Forever! 🎉💗</h2>
+        <p>
+            Shifa, you are truly the most special person in my life. Having you as my best friend is a blessing I will always cherish. I promise to stand by you through every high and low, to celebrate your happiest moments, and to hold your hand during your toughest days. No matter how much time passes or how much life changes, my care and love for you will always stay the same. You're not just my bestie; you're my comfort space, my secret keeper, and my favorite human. Always remember, in your ups and downs, you will never walk alone—I'm right here with you, forever! ✨💕
+        </p>
+        <div class="signature">~ Forever Your's, Shoaib 💖</div>
+    </div>
+
+    <script>
+        // Floating Hearts Generator
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.getElementById('hearts-container').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        setInterval(createHeart, 300);
+
+        // Interaction Logic
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const mainCard = document.getElementById('mainCard');
+        const messageCard = document.getElementById('messageCard');
+
+        let yesPadding = 12;
+        let yesFontSize = 1;
+
+        // Position 'No' Button initially
+        noBtn.style.right = '20px';
+
+        // Move 'No' Button & Make 'Yes' Button Bigger
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('click', moveNoButton);
+
+        function moveNoButton() {
+            // Move No Button
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 60);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+
+            // Make Yes Button Bigger
+            yesPadding += 6;
+            yesFontSize += 0.2;
+            yesBtn.style.padding = `${yesPadding}px ${yesPadding * 2}px`;
+            yesBtn.style.fontSize = `${yesFontSize}rem`;
+        }
+
+        // Handle Yes Click
+        yesBtn.addEventListener('click', () => {
+            mainCard.classList.add('hidden');
+            messageCard.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
